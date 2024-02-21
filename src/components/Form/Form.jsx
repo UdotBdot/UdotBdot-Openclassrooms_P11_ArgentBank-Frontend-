@@ -1,7 +1,10 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import "./Form.scss"
+import Input from '../Input/Input';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function Form() {
     return (
@@ -11,19 +14,28 @@ function Form() {
 
           <h1>Sign In</h1>
           <form>
-            <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
-            </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <a href="./user.html" className="sign-in-button">Sign In</a>
+            <Input 
+              className="input-wrapper"
+              htmlFor="username"
+              type="text"
+              id="username"
+              text="Username"
+            />
+            <Input 
+            className="input-wrapper"
+            htmlFor="password"
+            type="password"
+            id="password"
+            text="Password"
+            />
+            <Input 
+            className="input-remember"
+            htmlFor="remember-me"
+            type="checkbox"
+            id="remember-me"
+            text="Remember me"
+            />
+            <NavLink to={"/profile"} className="sign-in-button">Sign In</NavLink>
           </form>
         </section>
       </main>
