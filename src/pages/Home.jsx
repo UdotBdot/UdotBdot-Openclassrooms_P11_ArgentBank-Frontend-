@@ -1,12 +1,8 @@
 import React from 'react'
 // Composants
-import Header from '../components/Header/Header'
 import Hero from '../components/Hero/Hero'
 import Features from '../components/Features/Features'
-import Footer from '../components/Footer/Footer'
-// SCSS
-import "../components/Footer/Footer.scss"
-import "../components/Features/Features.scss"
+
 // Icônes
 import IconChat from "../assets/img/icon-chat.webp"
 import IconMoney from "../assets/img/icon-money.webp"
@@ -15,13 +11,10 @@ import IconSecurity from "../assets/img/icon-security.webp"
 function Home() {
   return (
     <>
-    <header>
-        <Header />
-    </header>
     <main>
         <Hero />
         <section className="features">
-        <h2 class="sr-only">Features</h2>
+        <h2 className="sr-only">Features</h2>
             <Features 
             iconSrc={IconChat}
             title="You are our #1 priority"
@@ -41,9 +34,6 @@ function Home() {
             />
         </section>
     </main>
-    <footer className="footer">
-        <Footer />
-    </footer>
     </>
   )
 }
