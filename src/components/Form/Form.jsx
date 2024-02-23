@@ -1,25 +1,73 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import "./Form.scss"
 import Input from '../Input/Input';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { loginError, loginSuccess } from '../../features/authSlice';
 
 function Form() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoginError(false);
+    }, 1500);
+  
+    return () => clearTimeout(timeout);
+  }, [loginError]);
+  
+  const fetchLogIn = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/user/login', {
+        email,
+        password,
+      });
+      const data = response.data;
+      const token = data.body.token;
+
+      rememberMe ? localStorage.setItem('token', token) : sessionStorage.setItem('token', token);
+
+      dispatch(loginSuccess({ token }));
+      navigate("/profile");
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setLoginError(true);
+        sessionStorage.removeItem("token");
+      } else {
+        console.error(err);
+      }
+    }
+  };
+  
     return (
       <main className="main bg-dark">
         <section className="sign-in-content">
         <FontAwesomeIcon icon={faCircleUser} className="sign-in-icon" />
 
           <h1>Sign In</h1>
-          <form>
+          <form onSubmit={fetchLogIn}>
             <Input 
               className="input-wrapper"
               htmlFor="username"
               type="text"
               id="username"
               text="Username"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
             <Input 
             className="input-wrapper"
@@ -27,6 +75,10 @@ function Form() {
             type="password"
             id="password"
             text="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             />
             <Input 
             className="input-remember"
@@ -34,16 +86,17 @@ function Form() {
             type="checkbox"
             id="remember-me"
             text="Remember me"
+            value={rememberMe}
+            onChange={(e) => {
+              setRememberMe(e.target.checked);
+            }}
             />
-            <NavLink to={"/profile"} className="sign-in-button">Sign In</NavLink>
+            <button className="sign-in-button">Sign In</button>
+            {loginError && <div className="error-message">Connexion echouée</div>}
           </form>
         </section>
       </main>
     );
   }
-
-    
-  
-
 
 export default Form
