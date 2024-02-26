@@ -20,7 +20,7 @@ const authSlice = createSlice({
     loginError(state, action) {
       state.isLoggedIn = false;
       state.token = null;
-      state.error = action.payload.error;
+      state.error = action.payload.error.response.data.message;
     },
     rememberMe(state, action) {
       state.rememberMe = action.payload.rememberMe;

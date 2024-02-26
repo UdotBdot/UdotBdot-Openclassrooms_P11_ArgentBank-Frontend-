@@ -13,19 +13,20 @@ function Form() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const message = useSelector((state) => state.auth.error);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [loginError1, setLoginError1] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setLoginError(false);
+      setLoginError1(false);
     }, 1500);
   
     return () => clearTimeout(timeout);
-  }, [loginError]);
+  }, [loginError1]);
   
   const fetchLogIn = async (e) => {
     e.preventDefault();
@@ -42,8 +43,9 @@ function Form() {
       dispatch(loginSuccess({ token }));
       navigate("/profile");
     } catch (err) {
-      if (err.response && err.response.status === 400) {
-        setLoginError(true);
+      if  (err.response && err.response.status === 400) {
+        dispatch(loginError({ error: err }));
+        setLoginError1(true); 
         sessionStorage.removeItem("token");
       } else {
         console.error(err);
@@ -92,7 +94,7 @@ function Form() {
             }}
             />
             <button className="sign-in-button">Sign In</button>
-            {loginError && <div className="error-message">Connexion echouée</div>}
+            {loginError1 && <div className="error-message">{ message }</div>}
           </form>
         </section>
       </main>
