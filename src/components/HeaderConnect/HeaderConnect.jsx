@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink, useNavigate } from 'react-router-dom';
 import "../Header/Header.scss"
 import { logOut } from '../../features/authSlice'; 
+import {setGetProfile} from "../../features/editUserSlice"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
+import axios from 'axios';
+
 
 function HeaderConnect() {
 
