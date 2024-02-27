@@ -26,4 +26,7 @@
             width: 200px;
         }
     }
+    .svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
+        margin-right: 5px;
+    }
   }

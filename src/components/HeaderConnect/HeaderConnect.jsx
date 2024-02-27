@@ -29,7 +29,7 @@ function HeaderConnect() {
 
         <NavLink className="navigation__item" onClick={handleLogOut}>
         <FontAwesomeIcon icon={faCircleUser} />
-          Sign Out
+          Log Out
         </NavLink>
       </div>
     </>
