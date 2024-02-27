@@ -5,7 +5,7 @@ const initialState = {
     token: null,
     error: null,
     rememberMe: false,
-    user: {},
+    user: "",
   };
 
 const authSlice = createSlice({
@@ -25,9 +25,15 @@ const authSlice = createSlice({
     rememberMe(state, action) {
       state.rememberMe = action.payload.rememberMe;
     },
+    logOut(state) {
+      state.isLoggedIn = false;
+      state.token = null;
+      state.error = null;
+      state.user = "";
+    }
   },
 });
 
-export const {loginSuccess, loginError, rememberMe} = authSlice.actions
+export const {loginSuccess, loginError, rememberMe, logOut} = authSlice.actions
 export default authSlice.reducer
 
