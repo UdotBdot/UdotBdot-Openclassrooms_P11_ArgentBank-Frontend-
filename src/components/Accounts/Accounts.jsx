@@ -1,6 +1,6 @@
 import React from 'react'
-import PropTypes from "prop-types";
 import "./Accounts.scss"
+import Button from '../Button/Button';
 
 function Accounts(props) {
     const { title, amount, description } = props;
@@ -13,7 +13,10 @@ function Accounts(props) {
           <p className="account-amount-description">{description}</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <Button
+          className="transaction-button"
+          text="View transactions"
+          />
         </div>
       </section>
     </>
