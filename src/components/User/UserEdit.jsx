@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setGetProfile } from "../../features/editUserSlice"
 import "./UserEdit.scss"
 import axios from 'axios'
-import Button from '../Button/Button'
+import EditUserName from '../EditUserName/EditUserName'
 
 function User() {
 
@@ -33,10 +33,7 @@ function User() {
     <>
       <div className="edit">
         <h1>Welcome back<br />{profile.firstName + " " + profile.lastName + "!"}</h1>
-        <Button
-        className="edit__button"
-        text="Edit Button"
-        />
+        <EditUserName/>
       </div>
     </>
   )

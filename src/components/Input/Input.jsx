@@ -3,11 +3,11 @@ import "./Input.scss"
 
 
 export default function Input(props) {
-    const { className, htmlFor, type, id, text, value, onChange } = props;
+    const { className, htmlFor, type, id, text, value, onChange, disabled, onSubmit} = props;
     return (
        <div className={className}>
         <label htmlFor={htmlFor}>{text}</label>
-        <input type={type} id={id} value={value} onChange={onChange} />
+        <input type={type} id={id} value={value} onChange={onChange} disabled={disabled} onSubmit={onSubmit}/>
        </div> 
     )
 }
