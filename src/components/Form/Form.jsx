@@ -44,7 +44,7 @@ function Form() {
       navigate("/profile");
     } catch (err) {
       if  (err.response && err.response.status === 400) {
-        dispatch(loginError({ error: err }));
+        dispatch(loginError({ error: err.response.data.message }));
         setLoginError1(true); 
         sessionStorage.removeItem("token");
       } else {
