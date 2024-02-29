@@ -9,7 +9,6 @@ function EditUserName() {
   const [newUserName, setNewUserName] = useState('');
   const token = useSelector((state) => state.auth.token);
   const profile = useSelector((state) => state.profile);
-  console.log(profile)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,13 +44,16 @@ function EditUserName() {
         htmlFor="UserName"
         text="User Name "
         type="text"
+        id="UserName" // Ajout de l'attribut id
         onChange={(e) => setNewUserName(e.target.value)}
+        autocomplete="off"
       />
 
       <Input
         htmlFor="firstname"
         text="First Name "
         type="text"
+        id="firstname" // Ajout de l'attribut id
         disabled
         value={profile.firstName}
       />
@@ -60,6 +62,7 @@ function EditUserName() {
         htmlFor="LastName"
         text="Last Name "
         type="text"
+        id="LastName" // Ajout de l'attribut id
         disabled
         value={profile.lastName}
       />

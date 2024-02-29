@@ -27,14 +27,22 @@ function Form() {
     }
   }, [error]);
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    dispatch(fetchLogin({ email, password, rememberMe }));
+    try {
+      await dispatch(fetchLogin({ email, password, rememberMe }));
+    } catch (error) {
+      console.log(error)
+    }
   };
-
-    if (isLoggedIn) { 
-      navigate("/profile");
-  }
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/profile');
+    }
+  }, [isLoggedIn, navigate]);
+  
+  
 
   return (
     <main className="main bg-dark">
