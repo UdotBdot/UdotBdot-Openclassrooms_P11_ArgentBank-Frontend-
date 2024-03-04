@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserProfile } from '../../features/editUserSlice';
 import EditUserName from '../EditUserName/EditUserName';
 import "./UserEdit.scss"
 
 function User() {
-  useSelector(state => state.auth.token);
+  const token = useSelector(state => state.auth.token);
   const { email, firstName, lastName } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
-  dispatch(fetchUserProfile());
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch, token]);
 
   return (
     <div className="edit">

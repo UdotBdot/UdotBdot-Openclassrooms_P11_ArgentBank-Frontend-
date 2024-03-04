@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input.jsx';
+import { updateUserName } from '../../features/editUserSlice';
 
 function EditUserName() {
+  const { firstName, lastName, userName } = useSelector(state => state.profile);
+  const [newUserName, setNewUserName] = useState(userName);
+  const dispatch = useDispatch();
+
+  const handleSave = () => {
+    dispatch(updateUserName(newUserName));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSave();
+  };
 
   return (
-    <form> 
+    <form onSubmit={handleSubmit}> 
       <Button
         className="edit__button"
         text="Edit"
@@ -15,27 +29,28 @@ function EditUserName() {
         htmlFor="UserName"
         text="User Name "
         type="text"
-        id="UserName" // Ajout de l'attribut id
-        // onChange={(e) => setNewUserName(e.target.value)}
-        autocomplete="off"
+        id="UserName" 
+        value={newUserName}
+        onChange={(e) => setNewUserName(e.target.value)}
+        autoComplete="off"
       />
 
       <Input
         htmlFor="firstname"
         text="First Name "
         type="text"
-        id="firstname" // Ajout de l'attribut id
+        id="firstname" 
         disabled
-        // value={profile.firstName}
+        value={firstName}
       />
 
       <Input
         htmlFor="LastName"
         text="Last Name "
         type="text"
-        id="LastName" // Ajout de l'attribut id
+        id="LastName" 
         disabled
-        // value={profile.lastName}
+        value={lastName}
       />
 
       <Button
@@ -45,7 +60,6 @@ function EditUserName() {
       />
 
       <Button className="edit__button" text="Cancel" />
-      {/* <div>{profile.userName}</div> */}
     </form>
   );
 }

@@ -17,6 +17,22 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+export const updateUserName = createAsyncThunk(
+  'profile/updateUserName',
+  async (newUserName, thunkAPI) => {
+    try {
+      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { userName: newUserName }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")}`,
+        },
+      });
+      return response.data.body;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const profileSlice = createSlice({
   name: "profile",
   initialState: {
@@ -24,7 +40,6 @@ const profileSlice = createSlice({
     firstName: "",
     lastName: "",
     userName: "",
-    status: 'idle',
     error: null,
   },
   reducers: {
@@ -34,18 +49,19 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserProfile.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         state.email = action.payload.email;
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;
         state.userName = action.payload.userName;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
-        state.status = 'failed';
+        state.error = action.payload.message;
+      })
+      .addCase(updateUserName.fulfilled, (state, action) => {
+        state.userName = action.payload.userName;
+      })
+      .addCase(updateUserName.rejected, (state, action) => {
         state.error = action.payload.message;
       });
   },

@@ -3,12 +3,13 @@ import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import '../Header/Header.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../features/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 
 function HeaderConnect() {
+  const { userName } = useSelector(state => state.profile)
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -22,7 +23,7 @@ function HeaderConnect() {
     <>
       <div>
         <NavLink to="/profile" className="navigation__item">
-          <FontAwesomeIcon icon={faRightFromBracket} />{' '}
+          <FontAwesomeIcon icon={faRightFromBracket} />{userName}
         </NavLink>
 
         <NavLink className="navigation__item" onClick={handleLogOut}>
