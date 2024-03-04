@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input.jsx';
 import { updateUserName } from '../../features/editUserSlice';
+import "./EditUserName.scss"
+
 
 function EditUserName() {
   const { firstName, lastName, userName } = useSelector(state => state.profile);
@@ -26,6 +28,7 @@ function EditUserName() {
       />
 
       <Input
+        className="input-wrapper input-wrapper--edit"
         htmlFor="UserName"
         text="User Name "
         type="text"
@@ -34,8 +37,9 @@ function EditUserName() {
         onChange={(e) => setNewUserName(e.target.value)}
         autoComplete="off"
       />
-
+<div className="edit-field">
       <Input
+        className="input-wrapper input-wrapper--edit"
         htmlFor="firstname"
         text="First Name "
         type="text"
@@ -45,6 +49,7 @@ function EditUserName() {
       />
 
       <Input
+        className="input-wrapper input-wrapper--edit"
         htmlFor="LastName"
         text="Last Name "
         type="text"
@@ -52,7 +57,7 @@ function EditUserName() {
         disabled
         value={lastName}
       />
-
+</div>
       <Button
         className="edit__button"
         text="Save"
