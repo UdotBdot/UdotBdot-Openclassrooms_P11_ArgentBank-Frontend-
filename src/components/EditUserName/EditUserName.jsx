@@ -6,12 +6,13 @@ import { updateUserName } from '../../features/editUserSlice';
 import "./EditUserName.scss"
 
 
-function EditUserName() {
+function EditUserName({ toggleEditing }) {
   const { firstName, lastName, userName } = useSelector(state => state.profile);
   const [newUserName, setNewUserName] = useState(userName);
   const dispatch = useDispatch();
 
   const handleSave = () => {
+    toggleEditing();
     dispatch(updateUserName(newUserName));
   };
 
@@ -22,10 +23,6 @@ function EditUserName() {
 
   return (
     <form onSubmit={handleSubmit}> 
-      <Button
-        className="edit__button"
-        text="Edit"
-      />
 
       <Input
         className="input-wrapper input-wrapper--edit"
@@ -64,7 +61,7 @@ function EditUserName() {
         type="submit" 
       />
 
-      <Button className="edit__button" text="Cancel" />
+      <Button className="edit__button" text="Cancel" onClick={toggleEditing} />
     </form>
   );
 }
