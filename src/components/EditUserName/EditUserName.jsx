@@ -1,40 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { setEditProfile } from '../../features/editUserSlice.js';
 
 function EditUserName() {
-  const [newUserName, setNewUserName] = useState('');
-  const token = useSelector((state) => state.auth.token);
-  const profile = useSelector((state) => state.profile);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    setNewUserName(profile.userName)
-  },[profile.userName])
-
-  const handleEditUserName = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.put(
-        'http://localhost:3001/api/v1/user/profile',
-        { username: newUserName },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(setEditProfile(newUserName))
-    } catch (error) {
-      // Gérer les erreurs
-    }
-  };
 
   return (
-    <form onSubmit={handleEditUserName}> 
+    <form> 
       <Button
         className="edit__button"
         text="Edit"
@@ -45,7 +16,7 @@ function EditUserName() {
         text="User Name "
         type="text"
         id="UserName" // Ajout de l'attribut id
-        onChange={(e) => setNewUserName(e.target.value)}
+        // onChange={(e) => setNewUserName(e.target.value)}
         autocomplete="off"
       />
 
@@ -55,7 +26,7 @@ function EditUserName() {
         type="text"
         id="firstname" // Ajout de l'attribut id
         disabled
-        value={profile.firstName}
+        // value={profile.firstName}
       />
 
       <Input
@@ -64,7 +35,7 @@ function EditUserName() {
         type="text"
         id="LastName" // Ajout de l'attribut id
         disabled
-        value={profile.lastName}
+        // value={profile.lastName}
       />
 
       <Button
@@ -74,7 +45,7 @@ function EditUserName() {
       />
 
       <Button className="edit__button" text="Cancel" />
-      <div>{profile.userName}</div>
+      {/* <div>{profile.userName}</div> */}
     </form>
   );
 }

@@ -33,6 +33,7 @@ function Form() {
       await dispatch(fetchLogin({ email, password, rememberMe }));
     } catch (error) {
       console.log(error)
+      sessionStorage.removeItem("token");
     }
   };
   

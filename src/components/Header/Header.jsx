@@ -5,11 +5,12 @@ import ABLogo from "../../assets/img/argentBankLogo.webp";
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import  HeaderConnect  from "../HeaderConnect/HeaderConnect"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+
 
 function Header() {
 
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+  const loggedIn = useSelector((state) => state.auth.isLoggedIn)
 
   return (
 <nav className="navigation">
@@ -21,18 +22,16 @@ function Header() {
     />
     <h1 className="sr-only">Argent Bank</h1>
   </NavLink>
-  { isLoggedIn ? (
-          <HeaderConnect />
-        ) : (
-          <div>
-            <NavLink to="/login" className="navigation__item">
-            <FontAwesomeIcon icon={faCircleUser}/>
-              Sign In
-            </NavLink>
-          </div>
-        )}
-</nav>
 
+  {loggedIn ? <HeaderConnect/> : 
+  <div>
+    <NavLink to="/login" className="navigation__item">
+    <FontAwesomeIcon icon={faCircleUser}/>
+      Sign In
+    </NavLink>
+  </div> }
+  
+</nav>
   )
 }
 

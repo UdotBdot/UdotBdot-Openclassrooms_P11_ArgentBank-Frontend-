@@ -1,42 +1,26 @@
-import React from 'react'
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setGetProfile } from "../../features/editUserSlice"
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUserProfile } from '../../features/editUserSlice';
+import EditUserName from '../EditUserName/EditUserName';
 import "./UserEdit.scss"
-import axios from 'axios'
-import EditUserName from '../EditUserName/EditUserName'
 
 function User() {
+  useSelector(state => state.auth.token);
+  const { email, firstName, lastName } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
 
-  const token = useSelector(state => state.auth.token)
-  const profile = useSelector((state) => state.profile)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const fetchDataUser = async () => {
-      try {
-        const response = await axios.post("http://localhost:3001/api/v1/user/profile", {}, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")}`,
-          },
-        });
-        const data = response.data; 
-        dispatch(setGetProfile({ data }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchDataUser();
-  }, [token]);
+  dispatch(fetchUserProfile());
 
   return (
-    <>
-      <div className="edit">
-        <h1>Welcome back<br />{profile.firstName + " " + profile.lastName + "!"}</h1>
-        <EditUserName/>
-      </div>
-    </>
-  )
+    <div className="edit">
+      {email && (
+        <>
+          <h1>Welcome back<br />{firstName} {lastName}!</h1>
+          <EditUserName />
+        </>
+      )}
+    </div>
+  );
 }
 
-export default User
+export default User;
