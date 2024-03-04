@@ -30,7 +30,7 @@ function EditUserName() {
       <Input
         className="input-wrapper input-wrapper--edit"
         htmlFor="UserName"
-        text="User Name "
+        text="User Name: "
         type="text"
         id="UserName" 
         value={newUserName}
@@ -41,7 +41,7 @@ function EditUserName() {
       <Input
         className="input-wrapper input-wrapper--edit"
         htmlFor="firstname"
-        text="First Name "
+        text="First Name: "
         type="text"
         id="firstname" 
         disabled
@@ -51,7 +51,7 @@ function EditUserName() {
       <Input
         className="input-wrapper input-wrapper--edit"
         htmlFor="LastName"
-        text="Last Name "
+        text="Last Name: "
         type="text"
         id="LastName" 
         disabled
